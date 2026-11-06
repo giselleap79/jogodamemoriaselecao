@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #009c3b 0%, #ffdf00 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 640px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    perspective: 1000px; /* Cria o efeito de profundidade para o flip 3D */
+}
+
+.card {
+    aspect-ratio: 3/4;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+/* Estado de virado */
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Bloqueia cliques em cartas já certas */
+.card.matched {
+    cursor: default;
+    transform: rotateY(180deg);
+    opacity: 0.8;
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Esconde a face oposta */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Verso da carta (Olhando para baixo) */
+.card-back {
+    background-color: #002776;
+    border: 3px solid #fff;
+    font-size: 2rem;
+}
+
+/* Frente da carta (Jogador revelado) */
+.card-front {
+    background-color: #fff;
+    color: #333;
+    transform: rotateY(180deg);
+    border: 3px solid #009c3b;
+    padding: 10px;
+}
+
+.player-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+.player-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Tela de Vitória */
+.win-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.win-screen.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.win-box {
+    background: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.win-box h2 {
+    color: #009c3b;
+    margin-bottom: 10px;
+}
+
+.win-box button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #002776;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.win-box button:hover {
+    background: #001f5c;
+}
+
+/* Responsividade simples para telas menores */
+@media (max-width: 480px) {
+    .game-container {
+        gap: 8px;
+    }
+    .player-emoji { font-size: 1.8rem; }
+    .player-name { font-size: 0.75rem; }
+}
